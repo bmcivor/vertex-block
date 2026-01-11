@@ -1,0 +1,9 @@
+services:
+  vertex-block:
+    build: .
+    ports:
+      - "5353:53/udp"
+      - "5353:53/tcp"
+    volumes:
+      - ./blocklists:/app/blocklists:ro
+      - ./src:/app/src:ro
