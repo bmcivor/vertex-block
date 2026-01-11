@@ -1,0 +1,8 @@
+site_name: Vertex Block
+site_description: Network-wide ad blocking via DNS
+
+theme:
+  name: material
+
+nav:
+  - Home: index.md
