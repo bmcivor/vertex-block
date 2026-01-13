@@ -4,5 +4,18 @@ site_description: Network-wide ad blocking via DNS
 theme:
   name: material
 
+markdown_extensions:
+  - pymdownx.superfences:
+      custom_fences:
+        - name: mermaid
+          class: mermaid
+          format: !!python/name:pymdownx.superfences.fence_code_format
+
 nav:
   - Home: index.md
+  - Design:
+    - Architecture: design/architecture.md
+    - DNS Server: design/dns-server.md
+    - Blocklists: design/blocklists.md
+    - API: design/api.md
+    - Configuration: design/configuration.md

@@ -19,7 +19,7 @@ build: uv.lock
 	docker compose build
 
 run:
-	docker compose up
+	docker compose up vertex-block -d
 
 test:
 	docker compose run --rm vertex-block pytest
@@ -28,4 +28,4 @@ clean:
 	docker compose down --rmi local
 
 docs:
-	docker compose run --rm -p 8000:8000 vertex-block mkdocs serve -a 0.0.0.0:8000
+	docker compose up docs -d
