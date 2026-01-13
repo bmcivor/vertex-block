@@ -21,16 +21,33 @@ Vertex Block runs as a DNS server on your network. When devices query for known 
 
 ## Status
 
-🚧 **In Development** - Currently scaffolding and design phase.
+🚧 **In Development** - Currently in design phase.
+
+## Documentation
+
+Design documentation is available in `docs/design/`:
+
+- [Architecture](docs/design/architecture.md) - System components and how they connect
+- [DNS Server](docs/design/dns-server.md) - Query handling and blocking behavior
+- [Blocklists](docs/design/blocklists.md) - Sources, formats, and update strategy
+- [API](docs/design/api.md) - REST endpoints for management
+- [Configuration](docs/design/configuration.md) - Runtime settings
+
+To view docs with live reload:
+
+```bash
+make docs
+# Open http://localhost:8000
+```
 
 ## Development
 
 ```bash
 make build   # Build Docker image (generates lockfile if needed)
-make run     # Run locally (DNS on port 5353)
+make run     # Run DNS server locally (port 5353)
 make test    # Run tests
 make lock    # Update uv.lock
-make docs    # Serve documentation
+make docs    # Serve documentation locally (port 8000)
 make clean   # Remove containers
 ```
 
