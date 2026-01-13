@@ -11,7 +11,6 @@ Vertex Block runs as a DNS server on your network. When devices query for known 
 - DNS sinkhole for ad/tracker domains
 - Aggregated community blocklists
 - REST API for stats and management
-- Web dashboard
 
 ## How It Works
 
