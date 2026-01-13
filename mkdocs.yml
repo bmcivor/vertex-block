@@ -12,10 +12,10 @@ markdown_extensions:
           format: !!python/name:pymdownx.superfences.fence_code_format
 
 nav:
-  - Home: index.md
   - Design:
     - Architecture: design/architecture.md
     - DNS Server: design/dns-server.md
     - Blocklists: design/blocklists.md
     - API: design/api.md
     - Configuration: design/configuration.md
+  - Testing: testing.md
