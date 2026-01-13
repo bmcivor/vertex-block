@@ -1,4 +1,4 @@
-.PHONY: help run test clean docs lock bump-patch bump-minor bump-major
+.PHONY: help run test clean docs lock down bump-patch bump-minor bump-major
 
 help:
 	@echo "Available targets:"
@@ -6,6 +6,7 @@ help:
 	@echo "  run        - Run container locally"
 	@echo "  test       - Run tests"
 	@echo "  clean      - Remove containers and images"
+	@echo "  down       - Stop running containers"
 	@echo "  docs       - Serve documentation locally"
 	@echo "  lock       - Update uv.lock file"
 	@echo "  bump-patch - Bump patch version (0.1.0 -> 0.1.1)"
@@ -32,6 +33,9 @@ clean:
 
 docs:
 	docker compose up docs -d
+
+down:
+	docker compose down
 
 bump-patch:
 	bump2version patch
