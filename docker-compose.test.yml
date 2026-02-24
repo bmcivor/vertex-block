@@ -1,0 +1,6 @@
+services:
+  vertex-block:
+    build:
+      context: .
+      target: test
+    command: uv run pytest -vvv
