@@ -36,7 +36,8 @@ Test components working together.
 ## Running Tests
 
 ```bash
-make test
+make build-test  # Build test image (first time or after code changes)
+make test        # Run tests
 ```
 
 ## Test Structure

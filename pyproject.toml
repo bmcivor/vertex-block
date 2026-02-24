@@ -8,6 +8,8 @@ dependencies = []
 [project.optional-dependencies]
 dev = [
     "pytest",
+    "pytest-asyncio",
+    "httpx",
     "mkdocs-material",
     "bump2version",
 ]
