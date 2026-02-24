@@ -4,14 +4,14 @@ This document defines the configuration options for Vertex Block.
 
 ## Overview
 
-Configuration is loaded from environment variables and/or a config file. Environment variables take precedence over config file values.
+Configuration is loaded from environment variables with sensible defaults. A `.env` file at the project root can be used for local development.
 
 ## Configuration Sources
 
 | Source | Priority | Use Case |
 |--------|----------|----------|
-| Environment variables | 1 (highest) | Docker/container deployment |
-| Config file (YAML) | 2 | Local development, persistent settings |
+| Environment variables | 1 (highest) | Docker/container deployment, CI |
+| `.env` file | 2 | Local development, persistent settings |
 | Defaults | 3 (lowest) | Fallback values |
 
 ## Environment Variables
@@ -54,36 +54,38 @@ Configuration is loaded from environment variables and/or a config file. Environ
 | `VB_DATA_DIR` | Directory for persistent data | `./data` |
 | `VB_STATS_RETENTION` | Days to retain query stats | `7` |
 
-## Config File
+## How It Works
 
-Optional YAML config file at `config.yaml` or path specified by `VB_CONFIG_FILE`.
+Configuration is handled by [pydantic-settings](https://docs.pydantic.dev/latest/concepts/pydantic_settings/). The `Settings` class in `src/vertex_block/config/settings.py` defines all options with types, defaults, and descriptions. All fields are loaded from environment variables with the `VB_` prefix.
 
-```yaml
-dns:
-  port: 53
-  upstream:
-    - 1.1.1.1
-    - 8.8.8.8
-  timeout: 5
-  block_response: nxdomain
+### `.env` file
 
-api:
-  port: 8080
-  host: 0.0.0.0
+For local development, create a `.env` file at the project root. Copy `.env.example` as a starting point:
 
-blocklist:
-  directory: ./blocklists
-  catalog: ./catalog.json
-  update_schedule: "0 4 * * *"  # 4am daily
-
-logging:
-  level: info
-  queries: false
-
-storage:
-  data_dir: ./data
-  stats_retention: 7
+```bash
+cp .env.example .env
 ```
+
+Set only the values you want to override; anything left blank uses the default. The `.env` file is gitignored.
+
+### Validation
+
+Invalid values are rejected at startup. Constrained fields:
+
+- `VB_DNS_BLOCK_RESPONSE` must be `nxdomain` or `zero`
+- `VB_LOG_LEVEL` must be `debug`, `info`, `warning`, or `error`
+- Numeric fields (`VB_DNS_PORT`, `VB_API_PORT`, `VB_DNS_TIMEOUT`, `VB_STATS_RETENTION`) must be valid integers
+
+### Usage in code
+
+```python
+from vertex_block.config import get_settings
+
+settings = get_settings()
+print(settings.dns_port)  # 53
+```
+
+`get_settings()` returns a cached singleton. The settings object is created once on first call.
 
 ## Docker Compose Example
 

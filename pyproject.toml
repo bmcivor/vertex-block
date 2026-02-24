@@ -3,15 +3,17 @@ name = "vertex-block"
 version = "0.1.1"
 description = "Network-wide ad blocking via DNS"
 requires-python = ">=3.13"
-dependencies = []
+dependencies = [
+    "pydantic-settings==2.13.1"
+]
 
 [project.optional-dependencies]
 dev = [
     "pytest==9.0.2",
-    "pytest-asyncio==v1.3.0",
+    "pytest-asyncio==1.3.0",
     "httpx==0.28.1",
     "mkdocs-material==9.7.3",
-    "bump2version==v1.0.1",
+    "bump2version==1.0.1",
 ]
 
 [build-system]
