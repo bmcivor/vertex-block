@@ -7,11 +7,11 @@ dependencies = []
 
 [project.optional-dependencies]
 dev = [
-    "pytest",
-    "pytest-asyncio",
-    "httpx",
-    "mkdocs-material",
-    "bump2version",
+    "pytest==9.0.2",
+    "pytest-asyncio==v1.3.0",
+    "httpx==0.28.1",
+    "mkdocs-material==9.7.3",
+    "bump2version==v1.0.1",
 ]
 
 [build-system]
