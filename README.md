@@ -42,12 +42,13 @@ make docs
 ## Development
 
 ```bash
-make build   # Build Docker image (generates lockfile if needed)
-make run     # Run DNS server locally (port 5353)
-make test    # Run tests
-make lock    # Update uv.lock
-make docs    # Serve documentation locally (port 8000)
-make clean   # Remove containers
+make build       # Build production Docker image (generates lockfile if needed)
+make build-test  # Build test Docker image
+make run         # Run DNS server locally (port 5353)
+make test        # Run tests (run build-test first if needed)
+make lock        # Update uv.lock
+make docs        # Serve documentation locally (port 8000)
+make clean       # Remove containers
 ```
 
 ## Deployment

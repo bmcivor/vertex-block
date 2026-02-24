@@ -1,8 +1,9 @@
-.PHONY: help run test clean docs lock down bump-patch bump-minor bump-major
+.PHONY: help build build-test run test clean docs lock down bump-patch bump-minor bump-major
 
 help:
 	@echo "Available targets:"
-	@echo "  build      - Build Docker image"
+	@echo "  build      - Build production Docker image"
+	@echo "  build-test - Build test Docker image"
 	@echo "  run        - Run container locally"
 	@echo "  test       - Run tests"
 	@echo "  clean      - Remove containers and images"
@@ -22,11 +23,14 @@ uv.lock: pyproject.toml
 build: uv.lock
 	docker compose build
 
+build-test: uv.lock
+	docker compose -f docker-compose.yaml -f docker-compose.test.yml build vertex-block
+
 run:
 	docker compose up vertex-block -d
 
 test:
-	docker compose run --rm vertex-block pytest
+	docker compose -f docker-compose.yaml -f docker-compose.test.yml run --rm vertex-block
 
 clean:
 	docker compose down --rmi local
