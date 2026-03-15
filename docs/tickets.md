@@ -28,27 +28,9 @@ Tickets derived from `docs/design/`. Order reflects dependencies; implement in s
 
 ---
 
-## 2. Config: YAML file and merge order
+## ~~2. Config: YAML file and merge order~~ (Cancelled)
 
-**As a** deployer  
-**I want** an optional YAML config file that merges with env with defined precedence  
-**So that** I can keep persistent settings in a file while overriding with env in CI/Docker.
-
-### Acceptance criteria
-
-- Optional config file path: `config.yaml` in cwd, or path from `VB_CONFIG_FILE`.
-- If the file is missing and `VB_CONFIG_FILE` is not set, only env and defaults are used (no error).
-- Precedence: env (highest) > YAML > defaults (lowest). Every key can be overridden by env.
-- YAML structure matches the example in `docs/design/configuration.md` (sections: dns, api, blocklist, logging, storage).
-- Invalid YAML or unknown keys are handled (reject with clear error or ignore unknown keys; document behaviour).
-
-### Dependencies
-
-- 1
-
-### Priority
-
-- High
+Not needed. Environment variables + `.env` file covers all use cases.
 
 ---
 
@@ -700,13 +682,13 @@ Tickets derived from `docs/design/`. Order reflects dependencies; implement in s
 
 ### Acceptance criteria
 
-- Entrypoint (e.g. `main`) loads config (1, 2), restores subscriptions and custom lists (16, 17), loads or builds blocklist store (7, 8) and allowlist (13), creates DNS server (9–12) and API app (21+).
+- Entrypoint (e.g. `main`) loads config (1), restores subscriptions and custom lists (16, 17), loads or builds blocklist store (7, 8) and allowlist (13), creates DNS server (9–12) and API app (21+).
 - DNS and API run concurrently; graceful shutdown on SIGTERM/SIGINT (close listeners, drain, exit).
 - Blocklist and allowlist are passed into DNS and into API routes that need them; stats (26) are wired to DNS and API.
 
 ### Dependencies
 
-- 1, 2, 7, 8, 9, 10, 11, 12, 13, 16, 17, 19, 21, 26
+- 1, 7, 8, 9, 10, 11, 12, 13, 16, 17, 19, 21, 26
 
 ### Priority
 
@@ -722,14 +704,14 @@ Tickets derived from `docs/design/`. Order reflects dependencies; implement in s
 
 ### Acceptance criteria
 
-- Tests for config: env only, env + YAML merge order, invalid values.
+- Tests for config: env only, env overrides, invalid values.
 - Tests for blocklist matching: exact match, parent match, empty set, TLD boundary, case and trailing dot.
 - Tests for each parser (hosts, domain list, adblock): valid input, empty input, comments, malformed lines; output set content.
 - Tests live under `tests/unit/`; runnable with `make test` or `pytest`; use pytest and pytest-asyncio where needed.
 
 ### Dependencies
 
-- 1, 2, 3, 4, 5, 6
+- 1, 3, 4, 5, 6
 
 ### Priority
 
@@ -803,7 +785,7 @@ Tickets derived from `docs/design/`. Order reflects dependencies; implement in s
 ## Dependency overview
 
 ```
-1 Config env/defaults    2 Config YAML
+1 Config env/defaults    2 (cancelled)
 3 Blocklist matching     4 Hosts parser  5 Domain list parser  6 Adblock parser
 7 Blocklist store load   8 Blocklist store add/remove
 9 DNS UDP                10 Block response  11 Upstream forward  12 DNS TCP
